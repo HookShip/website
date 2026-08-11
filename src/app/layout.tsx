@@ -1,4 +1,5 @@
 import type { Metadata, Viewport } from "next";
+import type { ReactNode } from "react";
 
 import "@fontsource-variable/fraunces";
 import "@fontsource-variable/ibm-plex-sans";
@@ -52,7 +53,7 @@ export const viewport: Viewport = {
   themeColor: "#f2eee5",
 };
 
-export default function RootLayout({ children }: LayoutProps<"/">) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en">
       <body>

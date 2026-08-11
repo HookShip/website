@@ -39,3 +39,8 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# The user's global ignore excludes every directory named "lib". This source
+# directory is part of the application and must remain tracked.
+!/src/lib/
+!/src/lib/**
