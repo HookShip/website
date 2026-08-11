@@ -1,36 +1,65 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# HookShip website
 
-## Getting Started
+Public website for the HookShip organization. The site explains the project layers,
+routes visitors to the owning repository, publishes an honest pre-release status, and
+provides the canonical entry point for early evaluation.
 
-First, run the development server:
+## Design and content ownership
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
+The visual direction combines an editorial field manual with an operations signal board:
+warm paper, dark ink, safety orange, signal green, sharp rules, and a live-looking
+webhook route diagram.
+
+Content is typed and centralized in [`src/data/site.ts`](src/data/site.ts). The website
+summarizes and links; it does not redefine product behavior:
+
+- `toolkit` owns public package interfaces, contracts, signing, and developer tooling;
+- `hook-service` owns the delivery protocol and portable data plane;
+- `platform` owns private managed control-plane behavior;
+- `.github` owns organization policy and shared community guidance; and
+- `website` owns public web presentation, navigation, and status summaries.
+
+When a summary and an owning repository disagree, the owning repository is correct and
+this site must be updated.
+
+## Local development
+
+Requirements:
+
+- Node.js 22.23.1 or newer
+- Corepack
+
+```sh
+corepack enable
+pnpm install --frozen-lockfile
 pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open <http://localhost:3000>.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Quality gates
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```sh
+pnpm check
+pnpm build:pages
+```
 
-## Learn More
+`pnpm check` runs formatting, lint, type checking, content tests, and the normal
+production build. `pnpm build:pages` creates the `/website`-based static export used by
+GitHub Pages.
 
-To learn more about Next.js, take a look at the following resources:
+## Deployment
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+The CI workflow validates every push and pull request. A successful push to `main`
+builds the static export and deploys `out/` through GitHub Pages using OIDC and
+repository-scoped permissions. No deployment token or runtime service is required.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+Expected public URL:
 
-## Deploy on Vercel
+<https://hookship.github.io/website/>
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Project status
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+HookShip is pre-release. This website must not invent packages, releases, customers,
+production outcomes, hosted access, service levels, contact addresses, or capabilities
+that are not supported by the owning repository.
